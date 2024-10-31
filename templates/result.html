@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}'s Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container result-page">
+        <h1 class="animate-text">{{ name }}'s Gallery</h1>
+        
+        <div class="animate-message">{{ message }}</div>
+        
+        <div class="media-gallery">
+            {% set animations = ['slide-left', 'slide-right', 'slide-up', 'slide-down', 'zoom-in'] %}
+            {% for photo in photos %}
+                <div class="photo-container {{ animations[loop.index0 % 5] }}">
+                    <img src="{{ url_for('static', filename='uploads/' + photo) }}" alt="Gallery Photo">
+                </div>
+            {% endfor %}
+        </div>
+        
+        {% if video %}
+        <div class="video-container">
+            <video controls autoplay muted loop>
+                <source src="{{ url_for('static', filename='uploads/' + video) }}" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        {% endif %}
+        
+        <div class="share-section">
+            <h3>Share this gallery:</h3>
+            <input type="text" class="share-link" readonly value="{{ request.url_root }}page/{{ page_id }}" 
+                   onclick="this.select(); document.execCommand('copy');">
+            <small>(Click to copy)</small>
+        </div>
+        
+        <a href="/" class="back-button">Create Another Gallery</a>
+    </div>
+    
+    <script>
+        // Auto-play video when all photos are done animating
+        setTimeout(() => {
+            const video = document.querySelector('video');
+            if (video) video.play();
+        }, 1000);
+    </script>
+</body>
+</html>

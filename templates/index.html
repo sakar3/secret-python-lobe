@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Your Media Gallery</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Media Gallery</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="name">Your Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Your Message:</label>
+                <textarea id="message" name="message" required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="photos">Upload Photos (Select 5-10 photos):</label>
+                <input type="file" id="photos" name="photos" accept="image/*" multiple required>
+                <small>Hold Ctrl/Cmd to select multiple files</small>
+            </div>
+            
+            <div class="form-group">
+                <label for="video">Upload Video:</label>
+                <input type="file" id="video" name="video" accept="video/*" required>
+            </div>
+            
+            <button type="submit">Generate Gallery</button>
+        </form>
+    </div>
+</body>
+</html>
